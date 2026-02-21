@@ -5,25 +5,10 @@ import bcrypt from "bcrypt"
 // User Register Route
 
     const registerUser = async (req,res) =>{
-// extract user data from the body. 
-// if data send through the parameter - user req.params 
+// // extract user data from the body. 
+// // if data send through the parameter - user req.params 
 
         const {username, email, password, role = "user"} = req.body;
-
-// first check user is exist or not. 
-        const isUserAlreadyExists = await userModel.findOne({
-            $or:[
-                {username},
-                {email}
-            ]
-        });
-
-// if exist return user already exists
-        if(isUserAlreadyExists){
-            return res.status(409).json({
-                message:"User already exists"
-            })
-        };
 
 // convert normal password to hash password 
         const hash = await bcrypt.hash(password, 10);
